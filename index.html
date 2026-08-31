@@ -10,15 +10,15 @@
       #input:focus { outline: none; }
       #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
 
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages > li { padding: 0.5rem 1rem; }
-      #messages > li:nth-child(odd) { background: #efefef; }
+      #kajnsdf { list-style-type: none; margin: 0; padding: 0; }
+      #kajnsdf > li { padding: 0.5rem 1rem; }
+      #kajnsdf > li:nth-child(odd) { background: #efefef; }
     </style>
   </head>
   <body>
-    <ul id="messages"></ul>
+    <ul id="kajnsdf"></ul>
     <form id="form" action="">
-      <input id="input" autocomplete="off" /><button>Send</button>
+      <input id="input" autocomplete="off" /><button>Chigga</button>
     </form>
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 <script>
@@ -26,22 +26,22 @@
   transports: ["websocket"] 
 });
 
-  var messages = document.getElementById('messages');
+  var kajnsdf = document.getElementById('kajnsdf');
   var form = document.getElementById('form');
   var input = document.getElementById('input');
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     if (input.value) {
-      socket.emit('chat message', input.value);
+      socket.emit('SG Event', input.value);
       input.value = '';
     }
   });
 
-  socket.on('chat message', function(msg) {
+  socket.on('SG Event', function(msg) {
     var item = document.createElement('li');
     item.textContent = msg;
-    messages.appendChild(item);
+    kajnsdf.appendChild(item);
     window.scrollTo(0, document.body.scrollHeight);
   });</script>
   </body>
