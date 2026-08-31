@@ -1,110 +1,49 @@
-<script>
-
-  document['\u0077\u0072\u0069\u0074\u0065'](`
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Chigger!</title>
+    <title>Socket.IO chat</title>
     <style>
-      body {
-        margin: 0;
-        padding-bottom: 3rem;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Helvetica, Arial, sans-serif;
-      }
+      body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
 
-      #form {
-        background: rgba(0, 0, 0, 0.15);
-        padding: 0.25rem;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        display: flex;
-        height: 3rem;
-        box-sizing: border-box;
-        backdrop-filter: blur(10px);
-      }
+      #form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
+      #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
+      #input:focus { outline: none; }
+      #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
 
-      #input {
-        border: none;
-        padding: 0 1rem;
-        flex-grow: 1;
-        border-radius: 2rem;
-        margin: 0.25rem;
-      }
-
-      #input:focus {
-        outline: none;
-      }
-
-      #form > button {
-        background: #333;
-        border: none;
-        padding: 0 1rem;
-        margin: 0.25rem;
-        border-radius: 3px;
-        outline: none;
-        color: #fff;
-      }
-
-      #kajnsdf {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-      }
-
-      #kajnsdf > li {
-        padding: 0.5rem 1rem;
-      }
-
-      #kajnsdf > li:nth-child(odd) {
-        background: #efefef;
-      }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages > li { padding: 0.5rem 1rem; }
+      #messages > li:nth-child(odd) { background: #efefef; }
     </style>
   </head>
-
   <body>
-    <ul id="kajnsdf"></ul>
-
+    <ul id="messages"></ul>
     <form id="form" action="">
-      <input id="input" autocomplete="off" />
-      <button>Chigga</button>
+      <input id="input" autocomplete="off" /><button>Send</button>
     </form>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script>
+  const iframe = document.createElement("iframe"); iframe.style.display = "none"; document.body.appendChild(iframe); iframe.contentDocument.write("<iframe>");
+  var socket = io("https://sigma-server-six.vercel.app/", {
+  transports: ["websocket"] 
+});
 
-    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"><\/script>
+  var messages = document.getElementById('messages');
+  var form = document.getElementById('form');
+  var input = document.getElementById('input');
 
-    <script>
-      var socket = io("https://sigma-server-six.vercel.app/", {
-        transports: ["websocket"]
-      });
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (input.value) {
+      socket.emit('chat message', input.value);
+      input.value = '';
+    }
+  });
 
-      const iframe = document.createElement("iframe");
-      iframe.style.display = "none";
-      document.body.appendChild(iframe);
-      iframe.contentDocument.write("<iframe>");
-
-      var kajnsdf = document.getElementById("kajnsdf");
-      var form = document.getElementById("form");
-      var input = document.getElementById("input");
-
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        if (input.value) {
-          socket.emit("SG Event", input.value);
-          input.value = "";
-        }
-      });
-
-      socket.on("SG Event", function (msg) {
-        var item = document.createElement("li");
-        item.textContent = msg;
-        kajnsdf.appendChild(item);
-        window.scrollTo(0, document.body.scrollHeight);
-      });
-    <\/script>
+  socket.on('chat message', function(msg) {
+    var item = document.createElement('li');
+    item.textContent = msg;
+    messages.appendChild(item);
+    window.scrollTo(0, document.body.scrollHeight);
+  });</script>
   </body>
 </html>
-`);
-</script>
