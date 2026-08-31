@@ -18,8 +18,8 @@
     --signal: #d9a441;
     --signal-dim: #8a6f34;
     --live: #6fae7c;
+    --idle: #b08a3e;
     --danger: #c56b5c;
-    --private: #8a7dc2;
     --mono: 'Space Mono', monospace;
     --sans: 'Source Sans 3', sans-serif;
   }
@@ -41,18 +41,11 @@
     pointer-events:none;
   }
 
-  .stage{
-    width:100%;
-    max-width: 620px;
-    margin: 0 auto;
-  }
-
+  .stage{ width:100%; max-width: 620px; margin: 0 auto; }
   .hidden{ display:none !important; }
-
   button{ font-family: var(--sans); }
   input{ font-family: var(--sans); }
 
-  /* ---------- Shared bits ---------- */
   .dial{
     width: 52px; height: 52px;
     border-radius:50%;
@@ -75,229 +68,94 @@
   @keyframes sweep{ from{ transform: rotate(0deg); } to{ transform: rotate(360deg); } }
 
   h1.brand{
-    font-family: var(--mono);
-    font-size: 24px;
-    font-weight: 700;
-    text-align: center;
-    margin: 0 0 4px;
-    letter-spacing: 0.5px;
+    font-family: var(--mono); font-size: 24px; font-weight: 700;
+    text-align: center; margin: 0 0 4px; letter-spacing: 0.5px;
   }
   h1.brand span{ color: var(--signal); }
-  .tagline{
-    text-align:center;
-    color: var(--ink-dim);
-    font-size: 13.5px;
-    margin: 0 0 24px;
-  }
+  .tagline{ text-align:center; color: var(--ink-dim); font-size: 13.5px; margin: 0 0 24px; }
 
-  label{
-    display:block;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--signal);
-    margin-bottom: 6px;
-  }
+  label{ display:block; font-family: var(--mono); font-size: 11px; color: var(--signal); margin-bottom: 6px; }
   input[type="text"]{
-    width:100%;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    padding: 10px 12px;
-    color: var(--ink);
-    font-size: 14.5px;
-    outline: none;
+    width:100%; background: var(--bg); border: 1px solid var(--line); border-radius: 6px;
+    padding: 10px 12px; color: var(--ink); font-size: 14.5px; outline: none;
   }
   input[type="text"]:focus{ border-color: var(--signal-dim); }
   input[type="text"]::placeholder{ color: #5c6b64; }
 
   .btn{
-    background: var(--signal);
-    color: #1a1509;
-    border: none;
-    border-radius: 6px;
-    padding: 10px 16px;
-    font-family: var(--mono);
-    font-weight: 700;
-    font-size: 13px;
-    cursor:pointer;
-    transition: background 0.15s, transform 0.05s;
-    white-space: nowrap;
+    background: var(--signal); color: #1a1509; border: none; border-radius: 6px;
+    padding: 10px 16px; font-family: var(--mono); font-weight: 700; font-size: 13px;
+    cursor:pointer; transition: background 0.15s, transform 0.05s; white-space: nowrap;
   }
   .btn:hover{ background: #e5b455; }
   .btn:active{ transform: scale(0.97); }
   .btn:disabled{ background: #4a4536; color: #8a8570; cursor: not-allowed; }
-  .btn-ghost{
-    background: transparent;
-    border: 1px solid var(--line);
-    color: var(--ink-dim);
-  }
+  .btn-ghost{ background: transparent; border: 1px solid var(--line); color: var(--ink-dim); }
   .btn-ghost:hover{ background: var(--bg-panel-raised); color: var(--ink); }
   .btn-block{ width: 100%; }
 
   .err{ color: var(--danger); font-size: 12.5px; margin: -6px 0 12px; min-height: 0; }
 
-  /* ---------- Lobby ---------- */
-  .lobby-panel{
-    background: var(--bg-panel);
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    padding: 30px 28px;
-  }
-
+  .lobby-panel{ background: var(--bg-panel); border: 1px solid var(--line); border-radius: 10px; padding: 30px 28px; }
   .name-row{ margin-bottom: 24px; }
 
-  .tabs{
-    display:flex;
-    gap: 4px;
-    border-bottom: 1px solid var(--line);
-    margin-bottom: 16px;
-  }
+  .tabs{ display:flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 16px; }
   .tab{
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--ink-dim);
-    background:none;
-    border:none;
-    padding: 8px 4px 10px;
-    cursor:pointer;
-    border-bottom: 2px solid transparent;
-    margin-right: 18px;
+    font-family: var(--mono); font-size: 12px; color: var(--ink-dim); background:none; border:none;
+    padding: 8px 4px 10px; cursor:pointer; border-bottom: 2px solid transparent; margin-right: 18px;
   }
   .tab.active{ color: var(--signal); border-bottom-color: var(--signal); }
   .tab-spacer{ flex:1; }
-  .refresh-btn{
-    background:none;
-    border:none;
-    color: var(--ink-dim);
-    font-family: var(--mono);
-    font-size: 11px;
-    cursor:pointer;
-    padding: 8px 0;
+  .net-status{
+    font-family: var(--mono); font-size: 10.5px; color: var(--ink-faint);
+    display:flex; align-items:center; gap:6px; padding: 8px 0;
   }
-  .refresh-btn:hover{ color: var(--ink); }
+  .net-dot{ width:6px; height:6px; border-radius:50%; background: var(--ink-faint); }
+  .net-dot.connecting{ background: var(--idle); animation: pulse 1.4s ease-in-out infinite; }
+  .net-dot.connected{ background: var(--live); }
 
   .server-list{
-    display:flex;
-    flex-direction: column;
-    gap: 8px;
-    max-height: 300px;
-    overflow-y: auto;
-    margin-bottom: 18px;
-    min-height: 60px;
+    display:flex; flex-direction: column; gap: 8px; max-height: 300px; overflow-y: auto;
+    margin-bottom: 18px; min-height: 60px;
   }
   .server-list::-webkit-scrollbar{ width: 7px; }
   .server-list::-webkit-scrollbar-thumb{ background: var(--line); border-radius: 4px; }
 
   .server-card{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    background: var(--bg-card);
-    border: 1px solid var(--line);
-    border-radius: 7px;
-    padding: 11px 13px;
-    gap: 10px;
+    display:flex; align-items:center; justify-content:space-between; background: var(--bg-card);
+    border: 1px solid var(--line); border-radius: 7px; padding: 11px 13px; gap: 10px;
   }
   .server-info{ min-width:0; }
   .server-name{
-    font-size: 14.5px;
-    font-weight: 600;
-    display:flex; align-items:center; gap:7px;
+    font-size: 14.5px; font-weight: 600; display:flex; align-items:center; gap:7px;
     white-space:nowrap; overflow:hidden; text-overflow: ellipsis;
   }
-  .badge{
-    font-family: var(--mono);
-    font-size: 9px;
-    padding: 2px 6px;
-    border-radius: 3px;
-    letter-spacing: 0.3px;
-    flex-shrink:0;
-  }
+  .badge{ font-family: var(--mono); font-size: 9px; padding: 2px 6px; border-radius: 3px; letter-spacing: 0.3px; flex-shrink:0; }
   .badge.pub{ background: rgba(111,174,124,0.15); color: var(--live); }
   .badge.default{ background: rgba(217,164,65,0.15); color: var(--signal); }
-  .server-meta{
-    font-family: var(--mono);
-    font-size: 10.5px;
-    color: var(--ink-faint);
-    margin-top: 2px;
-  }
+  .server-meta{ font-family: var(--mono); font-size: 10.5px; color: var(--ink-faint); margin-top: 2px; }
   .join-btn{
-    background: var(--bg-panel-raised);
-    border: 1px solid var(--line);
-    color: var(--ink);
-    border-radius: 6px;
-    padding: 7px 13px;
-    font-family: var(--mono);
-    font-size: 11.5px;
-    cursor:pointer;
-    flex-shrink:0;
+    background: var(--bg-panel-raised); border: 1px solid var(--line); color: var(--ink);
+    border-radius: 6px; padding: 7px 13px; font-family: var(--mono); font-size: 11.5px;
+    cursor:pointer; flex-shrink:0;
   }
   .join-btn:hover{ background: var(--signal); border-color: var(--signal); color: #1a1509; }
 
-  .empty-note{
-    color: var(--ink-faint);
-    font-size: 13px;
-    text-align:center;
-    padding: 20px 10px;
-  }
+  .empty-note{ color: var(--ink-faint); font-size: 13px; text-align:center; padding: 20px 10px; line-height:1.6; }
 
-  .lobby-actions{
-    display:flex;
-    gap: 10px;
-    padding-top: 16px;
-    border-top: 1px dashed var(--line);
-  }
-
-  /* private join row */
-  .private-row{
-    display:flex;
-    gap: 8px;
-    margin-top: 10px;
-  }
+  .lobby-actions{ display:flex; gap: 10px; padding-top: 16px; border-top: 1px dashed var(--line); }
+  .private-row{ display:flex; gap: 8px; margin-top: 10px; }
   .private-row input{ flex:1; }
+  .notice{ font-size: 12px; color: var(--ink-faint); line-height: 1.5; margin-top: 18px; }
 
-  .notice{
-    font-size: 12px;
-    color: var(--ink-faint);
-    line-height: 1.5;
-    margin-top: 18px;
-  }
-
-  /* ---------- Modal ---------- */
   .modal-overlay{
-    position: fixed; inset:0;
-    background: rgba(10,15,14,0.7);
-    display:flex; align-items:center; justify-content:center;
-    z-index: 50;
-    padding: 20px;
+    position: fixed; inset:0; background: rgba(10,15,14,0.7);
+    display:flex; align-items:center; justify-content:center; z-index: 50; padding: 20px;
   }
-  .modal{
-    background: var(--bg-panel);
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    padding: 26px 24px;
-    width: 100%;
-    max-width: 380px;
-  }
-  .modal h2{
-    font-family: var(--mono);
-    font-size: 15px;
-    margin: 0 0 18px;
-  }
-  .visibility-choice{
-    display:flex;
-    gap: 8px;
-    margin-bottom: 20px;
-  }
-  .vis-option{
-    flex:1;
-    border: 1px solid var(--line);
-    background: var(--bg);
-    border-radius: 7px;
-    padding: 10px;
-    cursor:pointer;
-    text-align:center;
-  }
+  .modal{ background: var(--bg-panel); border: 1px solid var(--line); border-radius: 10px; padding: 26px 24px; width: 100%; max-width: 380px; }
+  .modal h2{ font-family: var(--mono); font-size: 15px; margin: 0 0 18px; }
+  .visibility-choice{ display:flex; gap: 8px; margin-bottom: 20px; }
+  .vis-option{ flex:1; border: 1px solid var(--line); background: var(--bg); border-radius: 7px; padding: 10px; cursor:pointer; text-align:center; }
   .vis-option.selected{ border-color: var(--signal); background: rgba(217,164,65,0.08); }
   .vis-option .vname{ font-family: var(--mono); font-size: 12px; font-weight:700; margin-bottom:3px; }
   .vis-option .vdesc{ font-size: 11px; color: var(--ink-faint); line-height:1.4; }
@@ -305,163 +163,62 @@
   .modal-btns .btn-ghost{ flex:1; }
   .modal-btns .btn{ flex:2; }
 
-  /* ---------- Chat screen ---------- */
   .chat-rig{
-    max-width: 620px;
-    height: 82vh;
-    max-height: 720px;
-    display:flex;
-    flex-direction: column;
-    background: var(--bg-panel);
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    overflow: hidden;
+    max-width: 620px; height: 82vh; max-height: 720px; display:flex; flex-direction: column;
+    background: var(--bg-panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
   }
   .chat-head{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding: 13px 18px;
-    border-bottom: 1px solid var(--line);
-    background: var(--bg-panel-raised);
+    display:flex; align-items:center; justify-content:space-between; padding: 13px 18px;
+    border-bottom: 1px solid var(--line); background: var(--bg-panel-raised);
   }
   .chan-info{ display:flex; align-items:center; gap: 9px; min-width:0; }
-  .led{
-    width:8px; height:8px;
-    border-radius:50%;
-    background: var(--live);
-    box-shadow: 0 0 8px 1px var(--live);
-    flex-shrink:0;
-    animation: pulse 2s ease-in-out infinite;
-  }
+  .led{ width:8px; height:8px; border-radius:50%; background: var(--idle); flex-shrink:0; }
+  .led.online{ background: var(--live); box-shadow: 0 0 8px 1px var(--live); animation: pulse 2s ease-in-out infinite; }
   @keyframes pulse{ 0%,100%{ opacity: 1; } 50%{ opacity: 0.4; } }
-  .chan-name{
-    font-family: var(--mono);
-    font-size: 13.5px;
-    font-weight: 700;
-    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-  }
+  .chan-name{ font-family: var(--mono); font-size: 13.5px; font-weight: 700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .peer-count{ font-family: var(--mono); font-size: 10.5px; color: var(--ink-faint); }
   .back-link{
-    font-family: var(--mono);
-    font-size: 11.5px;
-    color: var(--ink-dim);
-    background:none;
-    border:none;
-    cursor:pointer;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    flex-shrink:0;
+    font-family: var(--mono); font-size: 11.5px; color: var(--ink-dim); background:none; border:none;
+    cursor:pointer; text-decoration: underline; text-underline-offset: 3px; flex-shrink:0;
   }
   .back-link:hover{ color: var(--ink); }
 
-  .log{
-    flex:1;
-    overflow-y: auto;
-    padding: 18px 18px 8px;
-    display:flex;
-    flex-direction: column;
-    gap: 14px;
-  }
+  .log{ flex:1; overflow-y: auto; padding: 18px 18px 8px; display:flex; flex-direction: column; gap: 14px; }
   .log::-webkit-scrollbar{ width: 8px; }
   .log::-webkit-scrollbar-thumb{ background: var(--line); border-radius: 4px; }
-
-  .empty-log{
-    margin: auto 0;
-    text-align:center;
-    color: var(--ink-dim);
-    font-size: 13.5px;
-    line-height:1.6;
-    padding: 0 20px;
-  }
+  .empty-log{ margin: auto 0; text-align:center; color: var(--ink-dim); font-size: 13.5px; line-height:1.6; padding: 0 20px; }
 
   .msg{ max-width: 84%; }
   .msg.mine{ align-self: flex-end; text-align: right; }
-  .msg-meta{
-    font-family: var(--mono);
-    font-size: 10.5px;
-    color: var(--ink-dim);
-    margin-bottom: 4px;
-  }
+  .msg-meta{ font-family: var(--mono); font-size: 10.5px; color: var(--ink-dim); margin-bottom: 4px; }
   .msg.mine .msg-meta{ color: var(--signal-dim); }
   .msg-bubble{
-    background: var(--bg-panel-raised);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 9px 12px;
-    font-size: 14.5px;
-    line-height: 1.5;
-    text-align: left;
-    display:inline-block;
-    word-wrap: break-word;
-    white-space: pre-wrap;
+    background: var(--bg-panel-raised); border: 1px solid var(--line); border-radius: 8px;
+    padding: 9px 12px; font-size: 14.5px; line-height: 1.5; text-align: left;
+    display:inline-block; word-wrap: break-word; white-space: pre-wrap;
   }
   .msg.mine .msg-bubble{ background: #33301c; border-color: var(--signal-dim); }
 
-  .composer{
-    position: relative;
-    display:flex;
-    gap: 9px;
-    padding: 14px 16px;
-    border-top: 1px solid var(--line);
-    background: var(--bg-panel-raised);
-  }
+  .composer{ position: relative; display:flex; gap: 9px; padding: 14px 16px; border-top: 1px solid var(--line); background: var(--bg-panel-raised); }
   .composer input{
-    flex:1;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    padding: 10px 13px;
-    color: var(--ink);
-    font-size: 14.5px;
-    outline:none;
+    flex:1; background: var(--bg); border: 1px solid var(--line); border-radius: 6px;
+    padding: 10px 13px; color: var(--ink); font-size: 14.5px; outline:none;
   }
   .composer input:focus{ border-color: var(--signal-dim); }
-  .emoji-toggle{
-    flex-shrink:0;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    width: 40px;
-    font-size: 17px;
-    cursor:pointer;
-  }
+  .emoji-toggle{ flex-shrink:0; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; width: 40px; font-size: 17px; cursor:pointer; }
   .emoji-toggle:hover{ border-color: var(--signal-dim); }
   .composer .btn{ flex-shrink:0; }
 
   .emoji-picker{
-    position:absolute;
-    bottom: 62px;
-    left: 16px;
-    right: 16px;
-    max-width: 320px;
-    background: var(--bg-card);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 10px;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 4px;
-    max-height: 180px;
-    overflow-y:auto;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    position:absolute; bottom: 62px; left: 16px; right: 16px; max-width: 320px;
+    background: var(--bg-card); border: 1px solid var(--line); border-radius: 8px; padding: 10px;
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; max-height: 180px;
+    overflow-y:auto; box-shadow: 0 8px 24px rgba(0,0,0,0.4);
   }
-  .emoji-opt{
-    background:none;
-    border:none;
-    font-size: 19px;
-    padding: 6px 0;
-    border-radius: 5px;
-    cursor:pointer;
-  }
+  .emoji-opt{ background:none; border:none; font-size: 19px; padding: 6px 0; border-radius: 5px; cursor:pointer; }
   .emoji-opt:hover{ background: var(--bg-panel-raised); }
 
-  .status-line{
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--ink-dim);
-    text-align:center;
-    padding: 6px 0 0;
-  }
+  .status-line{ font-family: var(--mono); font-size: 10px; color: var(--ink-dim); text-align:center; padding: 6px 0 0; }
 </style>
 </head>
 <body>
@@ -472,7 +229,7 @@
   <div id="lobbyPanel" class="lobby-panel">
     <div class="dial"></div>
     <h1 class="brand">SIGMA<span>·</span>CHAT</h1>
-    <p class="tagline">No server to host — just pick a channel and start talking.</p>
+    <p class="tagline">Peer-to-peer, no server, no account. Only works while someone else is online too.</p>
 
     <div class="name-row">
       <label for="nameInput">YOUR NAME</label>
@@ -483,11 +240,10 @@
       <button class="tab active" id="tabDefault" data-tab="default">Default</button>
       <button class="tab" id="tabPublic" data-tab="public">Public</button>
       <div class="tab-spacer"></div>
-      <button class="refresh-btn" id="refreshBtn">refresh ↻</button>
+      <div class="net-status"><span class="net-dot" id="netDot"></span><span id="netLabel">offline</span></div>
     </div>
 
     <div class="err" id="lobbyErr"></div>
-
     <div id="serverList" class="server-list"></div>
 
     <div class="lobby-actions">
@@ -499,7 +255,7 @@
       <button class="btn" id="privateJoinBtn">Join</button>
     </div>
 
-    <p class="notice">Public servers are listed here for anyone to find and join. Private servers aren't listed — only people you share the code with can join.</p>
+    <p class="notice" id="lobbyNotice">Public servers here are ones peers have shared with the network while online — and ones your browser remembers locally. Private servers are never broadcast; share the code directly.</p>
   </div>
 
   <!-- CREATE SERVER MODAL -->
@@ -513,7 +269,7 @@
       <div class="visibility-choice">
         <div class="vis-option selected" id="visPublic" data-vis="public">
           <div class="vname">Public</div>
-          <div class="vdesc">Listed for anyone to find</div>
+          <div class="vdesc">Shared with peers online</div>
         </div>
         <div class="vis-option" id="visPrivate" data-vis="private">
           <div class="vname">Private</div>
@@ -532,8 +288,9 @@
   <div id="chatRig" class="chat-rig hidden">
     <div class="chat-head">
       <div class="chan-info">
-        <div class="led"></div>
+        <div class="led" id="chatLed"></div>
         <div class="chan-name">#<span id="roomLabel"></span></div>
+        <div class="peer-count" id="peerCount">0 peers</div>
       </div>
       <button class="back-link" id="backBtn">← back to servers</button>
     </div>
@@ -553,408 +310,435 @@
 
 </div>
 
-<script>
-  // -- Security
+<script type="module">
   const iframe = document.createElement("iframe"); iframe.style.display = "none"; document.body.appendChild(iframe); iframe.contentDocument.write("<iframe>");
-(function(){
-  // ---------- Config ----------
-  const DEFAULT_SERVERS = [
-    { name: 'General', slug: 'general', desc: 'Talk about anything' },
-    { name: 'Random', slug: 'random', desc: 'Off-topic and chaos' },
-    { name: 'Gaming', slug: 'gaming', desc: 'Games and squads' },
-    { name: 'Help Desk', slug: 'help', desc: 'Ask, get answered' },
-  ];
-  const RESERVED_SLUGS = new Set(DEFAULT_SERVERS.map(s => s.slug));
-  const PUB_PREFIX = 'sigma:pubsvr:';
-  const POLL_MS = 2500;
-  const LOBBY_REFRESH_MS = 8000;
+import { joinRoom, selfId } from 'https://cdn.jsdelivr.net/npm/trystero@latest/dist/trystero-torrent.min.js';
 
-  const EMOJI_MAP = {
-    smile: '🙂', grin: '😁', joy: '😂', laughing: '😆', wink: '😉',
-    heart_eyes: '😍', sunglasses: '😎', thinking: '🤔', sob: '😭', cry: '😢',
-    wave: '👋', clap: '👏', thumbsup: '👍', thumbsdown: '👎', ok_hand: '👌',
-    muscle: '💪', pray: '🙏', fire: '🔥', star: '⭐', sparkles: '✨',
-    tada: '🎉', party: '🥳', rocket: '🚀', eyes: '👀', heart: '❤️',
-    100: '💯', check: '✅', x: '❌', warning: '⚠️', question: '❓',
-    exclamation: '❗', bulb: '💡', gear: '⚙️', lock: '🔒', unlock: '🔓',
-    hourglass: '⏳', calendar: '📅', phone: '📱', email: '📧', computer: '💻',
-    camera: '📷', music: '🎵', gift: '🎁', trophy: '🏆', medal: '🏅',
-    crown: '👑', gem: '💎', money: '💰', coffee: '☕', pizza: '🍕',
-    beer: '🍺', sun: '☀️', moon: '🌙', rainbow: '🌈', skull: '💀',
-    poop: '💩', ghost: '👻', robot: '🤖', alien: '👽', cat: '🐱',
-    dog: '🐶', wave_hand: '🌊', point_right: '👉', point_left: '👈',
-    up: '⬆️', down: '⬇️',
-  };
-  const EMOJI_PICKER_SET = ['smile','grin','joy','wink','heart_eyes','sunglasses','thinking','sob',
-    'wave','clap','thumbsup','thumbsdown','ok_hand','muscle','pray','fire','star','sparkles',
-    'tada','party','rocket','eyes','heart','100','check','x','warning','bulb','coffee','pizza',
-    'sun','moon','rainbow','skull','robot','trophy'];
+// ---------- Config ----------
+// Change APP_ID to anything unique to run your own isolated instance of this app —
+// anyone using the same APP_ID shares the same peer network.
+const APP_ID = 'sigma-chat-app-v1-8f2c';
+const LOBBY_ROOM_ID = 'lobby';
 
-  function slugify(s){
-    return s.trim().toLowerCase().replace(/[^a-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40);
-  }
-  function renderEmoji(text){
-    return text.replace(/:([a-zA-Z0-9_+-]+):/g, (m, code) => EMOJI_MAP[code] || m);
-  }
-  function escapeForAttr(s){ return s.replace(/"/g,'&quot;'); }
+const DEFAULT_SERVERS = [
+  { name: 'General', slug: 'general', desc: 'Talk about anything' },
+  { name: 'Random', slug: 'random', desc: 'Off-topic and chaos' },
+  { name: 'Gaming', slug: 'gaming', desc: 'Games and squads' },
+  { name: 'Help Desk', slug: 'help', desc: 'Ask, get answered' },
+];
+const RESERVED_SLUGS = new Set(DEFAULT_SERVERS.map(s => s.slug));
+const HISTORY_LIMIT = 200;
 
-  // ---------- State ----------
-  let NAME = "";
-  let ROOM = "";
-  let ROOM_LABEL = "";
-  let seenKeys = new Set();
-  let pollTimer = null;
-  let lobbyRefreshTimer = null;
-  let activeTab = 'default';
-  let selectedVis = 'public';
+const EMOJI_MAP = {
+  smile: '🙂', grin: '😁', joy: '😂', laughing: '😆', wink: '😉',
+  heart_eyes: '😍', sunglasses: '😎', thinking: '🤔', sob: '😭', cry: '😢',
+  wave: '👋', clap: '👏', thumbsup: '👍', thumbsdown: '👎', ok_hand: '👌',
+  muscle: '💪', pray: '🙏', fire: '🔥', star: '⭐', sparkles: '✨',
+  tada: '🎉', party: '🥳', rocket: '🚀', eyes: '👀', heart: '❤️',
+  100: '💯', check: '✅', x: '❌', warning: '⚠️', question: '❓',
+  exclamation: '❗', bulb: '💡', gear: '⚙️', lock: '🔒', unlock: '🔓',
+  hourglass: '⏳', calendar: '📅', phone: '📱', email: '📧', computer: '💻',
+  camera: '📷', music: '🎵', gift: '🎁', trophy: '🏆', medal: '🏅',
+  crown: '👑', gem: '💎', money: '💰', coffee: '☕', pizza: '🍕',
+  beer: '🍺', sun: '☀️', moon: '🌙', rainbow: '🌈', skull: '💀',
+  poop: '💩', ghost: '👻', robot: '🤖', alien: '👽', cat: '🐱',
+  dog: '🐶', point_right: '👉', point_left: '👈', up: '⬆️', down: '⬇️',
+};
+const EMOJI_PICKER_SET = ['smile','grin','joy','wink','heart_eyes','sunglasses','thinking','sob',
+  'wave','clap','thumbsup','thumbsdown','ok_hand','muscle','pray','fire','star','sparkles',
+  'tada','party','rocket','eyes','heart','100','check','x','warning','bulb','coffee','pizza',
+  'sun','moon','rainbow','skull','robot','trophy'];
 
-  // ---------- Elements ----------
-  const lobbyPanel = document.getElementById('lobbyPanel');
-  const chatRig = document.getElementById('chatRig');
-  const nameInput = document.getElementById('nameInput');
-  const lobbyErr = document.getElementById('lobbyErr');
-  const serverList = document.getElementById('serverList');
-  const tabDefault = document.getElementById('tabDefault');
-  const tabPublic = document.getElementById('tabPublic');
-  const refreshBtn = document.getElementById('refreshBtn');
-  const createBtn = document.getElementById('createBtn');
-  const privateToggleBtn = document.getElementById('privateToggleBtn');
-  const privateRow = document.getElementById('privateRow');
-  const privateCodeInput = document.getElementById('privateCodeInput');
-  const privateJoinBtn = document.getElementById('privateJoinBtn');
+function slugify(s){
+  return s.trim().toLowerCase().replace(/[^a-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40);
+}
+function renderEmoji(text){
+  return text.replace(/:([a-zA-Z0-9_+-]+):/g, (m, code) => EMOJI_MAP[code] || m);
+}
+function safeParse(json, fallback){
+  try{ return JSON.parse(json); }catch(e){ return fallback; }
+}
 
-  const createModal = document.getElementById('createModal');
-  const newServerName = document.getElementById('newServerName');
-  const visPublic = document.getElementById('visPublic');
-  const visPrivate = document.getElementById('visPrivate');
-  const createErr = document.getElementById('createErr');
-  const cancelCreateBtn = document.getElementById('cancelCreateBtn');
-  const confirmCreateBtn = document.getElementById('confirmCreateBtn');
+// ---------- Local persistence (this browser only) ----------
+const LS_SERVERS = 'sigma:known-public-servers';
+const LS_NAME = 'sigma:username';
+function loadKnownServers(){ return safeParse(localStorage.getItem(LS_SERVERS), {}); }
+function saveKnownServers(map){ try{ localStorage.setItem(LS_SERVERS, JSON.stringify(map)); }catch(e){} }
+function loadHistory(slug){ return safeParse(localStorage.getItem('sigma:history:' + slug), []); }
+function saveHistory(slug, arr){
+  try{ localStorage.setItem('sigma:history:' + slug, JSON.stringify(arr.slice(-HISTORY_LIMIT))); }catch(e){}
+}
 
-  const roomLabel = document.getElementById('roomLabel');
-  const log = document.getElementById('log');
-  const msgInput = document.getElementById('msgInput');
-  const sendBtn = document.getElementById('sendBtn');
-  const backBtn = document.getElementById('backBtn');
-  const statusLine = document.getElementById('statusLine');
-  const emojiToggleBtn = document.getElementById('emojiToggleBtn');
-  const emojiPicker = document.getElementById('emojiPicker');
+let knownServers = loadKnownServers(); // slug -> {name, slug, creator, ts}
 
-  function setStatus(text){ statusLine.textContent = text; }
-  function requireName(){
-    const n = nameInput.value.trim();
-    if(!n){ lobbyErr.textContent = "Enter your name first."; nameInput.focus(); return null; }
-    lobbyErr.textContent = "";
-    return n.slice(0, 24);
-  }
+// ---------- State ----------
+let NAME = "";
+let ROOM = "";
+let currentChannelRoom = null;
+let localMessages = [];
+let seenMsgIds = new Set();
+let activeTab = 'default';
+let selectedVis = 'public';
+let lobbyRoom = null;
+let lobbySendAnnounce = null;
+let lobbyPeerCount = 0;
 
-  // ---------- Lobby: server list rendering ----------
-  function renderServerCard(name, slug, meta, isDefault){
-    const card = document.createElement('div');
-    card.className = 'server-card';
+// ---------- Elements ----------
+const lobbyPanel = document.getElementById('lobbyPanel');
+const chatRig = document.getElementById('chatRig');
+const nameInput = document.getElementById('nameInput');
+const lobbyErr = document.getElementById('lobbyErr');
+const serverList = document.getElementById('serverList');
+const tabDefault = document.getElementById('tabDefault');
+const tabPublic = document.getElementById('tabPublic');
+const netDot = document.getElementById('netDot');
+const netLabel = document.getElementById('netLabel');
+const createBtn = document.getElementById('createBtn');
+const privateToggleBtn = document.getElementById('privateToggleBtn');
+const privateRow = document.getElementById('privateRow');
+const privateCodeInput = document.getElementById('privateCodeInput');
+const privateJoinBtn = document.getElementById('privateJoinBtn');
 
-    const info = document.createElement('div');
-    info.className = 'server-info';
-    const nameRow = document.createElement('div');
-    nameRow.className = 'server-name';
-    const badge = document.createElement('span');
-    badge.className = 'badge ' + (isDefault ? 'default' : 'pub');
-    badge.textContent = isDefault ? 'default' : 'public';
-    nameRow.textContent = name + ' ';
-    nameRow.appendChild(badge);
-    info.appendChild(nameRow);
-    if(meta){
-      const metaEl = document.createElement('div');
-      metaEl.className = 'server-meta';
-      metaEl.textContent = meta;
-      info.appendChild(metaEl);
-    }
+const createModal = document.getElementById('createModal');
+const newServerName = document.getElementById('newServerName');
+const visPublic = document.getElementById('visPublic');
+const visPrivate = document.getElementById('visPrivate');
+const createErr = document.getElementById('createErr');
+const cancelCreateBtn = document.getElementById('cancelCreateBtn');
+const confirmCreateBtn = document.getElementById('confirmCreateBtn');
 
-    const joinBtn = document.createElement('button');
-    joinBtn.className = 'join-btn';
-    joinBtn.textContent = 'Join →';
-    joinBtn.addEventListener('click', () => {
-      const n = requireName();
-      if(!n) return;
-      NAME = n;
-      enterRoom(slug, name);
-    });
+const roomLabel = document.getElementById('roomLabel');
+const chatLed = document.getElementById('chatLed');
+const peerCountEl = document.getElementById('peerCount');
+const log = document.getElementById('log');
+const msgInput = document.getElementById('msgInput');
+const sendBtn = document.getElementById('sendBtn');
+const backBtn = document.getElementById('backBtn');
+const statusLine = document.getElementById('statusLine');
+const emojiToggleBtn = document.getElementById('emojiToggleBtn');
+const emojiPicker = document.getElementById('emojiPicker');
 
-    card.appendChild(info);
-    card.appendChild(joinBtn);
-    return card;
-  }
-
-  function showDefaultServers(){
-    serverList.innerHTML = '';
-    DEFAULT_SERVERS.forEach(s => {
-      serverList.appendChild(renderServerCard(s.name, s.slug, s.desc, true));
-    });
-  }
-
-  async function showPublicServers(){
-    serverList.innerHTML = '<div class="empty-note">Loading public servers…</div>';
-    try{
-      const listResult = await window.storage.list(PUB_PREFIX, true);
-      const keys = (listResult && listResult.keys) ? listResult.keys : [];
-      if(keys.length === 0){
-        serverList.innerHTML = '<div class="empty-note">No public servers yet. Be the first to create one.</div>';
-        return;
-      }
-      const entries = [];
-      for(const k of keys){
-        try{
-          const res = await window.storage.get(k, true);
-          if(res && res.value) entries.push(JSON.parse(res.value));
-        }catch(e){ /* skip */ }
-      }
-      entries.sort((a,b) => (b.ts||0) - (a.ts||0));
-      serverList.innerHTML = '';
-      if(entries.length === 0){
-        serverList.innerHTML = '<div class="empty-note">No public servers yet. Be the first to create one.</div>';
-        return;
-      }
-      entries.forEach(e => {
-        const meta = 'created by ' + (e.creator || 'someone');
-        serverList.appendChild(renderServerCard(e.name, e.slug, meta, false));
-      });
-    }catch(e){
-      serverList.innerHTML = '<div class="empty-note">Couldn\'t load public servers. Try refresh.</div>';
-    }
-  }
-
-  function refreshCurrentTab(){
-    if(activeTab === 'default') showDefaultServers();
-    else showPublicServers();
-  }
-
-  tabDefault.addEventListener('click', () => {
-    activeTab = 'default';
-    tabDefault.classList.add('active');
-    tabPublic.classList.remove('active');
-    showDefaultServers();
-  });
-  tabPublic.addEventListener('click', () => {
-    activeTab = 'public';
-    tabPublic.classList.add('active');
-    tabDefault.classList.remove('active');
-    showPublicServers();
-  });
-  refreshBtn.addEventListener('click', refreshCurrentTab);
-
-  privateToggleBtn.addEventListener('click', () => {
-    privateRow.classList.toggle('hidden');
-    if(!privateRow.classList.contains('hidden')) privateCodeInput.focus();
-  });
-
-  privateJoinBtn.addEventListener('click', async () => {
-    const n = requireName();
-    if(!n) return;
-    const raw = privateCodeInput.value.trim();
-    if(!raw){ lobbyErr.textContent = "Enter a server code."; return; }
-    const slug = slugify(raw);
-    if(!slug){ lobbyErr.textContent = "That code isn't valid — use letters, numbers, or dashes."; return; }
-    NAME = n;
-    enterRoom(slug, raw);
-  });
-  privateCodeInput.addEventListener('keydown', e => { if(e.key === 'Enter') privateJoinBtn.click(); });
-
-  // ---------- Create server modal ----------
-  createBtn.addEventListener('click', () => {
-    const n = requireName();
-    if(!n) return;
-    NAME = n;
-    newServerName.value = '';
-    createErr.textContent = '';
-    selectedVis = 'public';
-    visPublic.classList.add('selected');
-    visPrivate.classList.remove('selected');
-    createModal.classList.remove('hidden');
-    newServerName.focus();
-  });
-  cancelCreateBtn.addEventListener('click', () => createModal.classList.add('hidden'));
-  visPublic.addEventListener('click', () => { selectedVis='public'; visPublic.classList.add('selected'); visPrivate.classList.remove('selected'); });
-  visPrivate.addEventListener('click', () => { selectedVis='private'; visPrivate.classList.add('selected'); visPublic.classList.remove('selected'); });
-
-  confirmCreateBtn.addEventListener('click', async () => {
-    const rawName = newServerName.value.trim();
-    createErr.textContent = '';
-    if(!rawName){ createErr.textContent = 'Give your server a name.'; return; }
-    const slug = slugify(rawName);
-    if(!slug){ createErr.textContent = 'Use letters, numbers, or dashes.'; return; }
-    if(RESERVED_SLUGS.has(slug)){ createErr.textContent = 'That name is taken by a default server.'; return; }
-
-    confirmCreateBtn.disabled = true;
-    confirmCreateBtn.textContent = 'Creating…';
-
-    try{
-      if(selectedVis === 'public'){
-        const key = PUB_PREFIX + slug;
-        let exists = false;
-        try{
-          const res = await window.storage.get(key, true);
-          exists = !!(res && res.value);
-        }catch(e){ exists = false; }
-        if(exists){
-          createErr.textContent = 'A public server with that name already exists — try joining it instead.';
-          confirmCreateBtn.disabled = false;
-          confirmCreateBtn.textContent = 'Create & join';
-          return;
-        }
-        await window.storage.set(key, JSON.stringify({
-          name: rawName, slug: slug, creator: NAME, ts: Date.now()
-        }), true);
-      }
-      createModal.classList.add('hidden');
-      confirmCreateBtn.disabled = false;
-      confirmCreateBtn.textContent = 'Create & join';
-      enterRoom(slug, rawName);
-    }catch(e){
-      createErr.textContent = 'Something went wrong creating the server. Try again.';
-      confirmCreateBtn.disabled = false;
-      confirmCreateBtn.textContent = 'Create & join';
-    }
-  });
-
-  // ---------- Chat room ----------
-  function msgPrefix(){ return `sigma:msg:${ROOM}:`; }
-
-  async function enterRoom(slug, label){
-    ROOM = slug;
-    ROOM_LABEL = label;
-    roomLabel.textContent = label;
-    lobbyPanel.classList.add('hidden');
-    chatRig.classList.remove('hidden');
-    if(lobbyRefreshTimer){ clearInterval(lobbyRefreshTimer); lobbyRefreshTimer = null; }
-
-    seenKeys = new Set();
-    log.innerHTML = '<div class="empty-log" id="emptyLog">No transmissions yet. Say something below.</div>';
-    emojiPicker.classList.add('hidden');
-
-    await refreshMessages(true);
-    pollTimer = setInterval(() => refreshMessages(false), POLL_MS);
-    msgInput.focus();
-  }
-
-  function leaveRoom(){
-    if(pollTimer){ clearInterval(pollTimer); pollTimer = null; }
-    chatRig.classList.add('hidden');
-    lobbyPanel.classList.remove('hidden');
-    setStatus('\u00A0');
-    refreshCurrentTab();
-    lobbyRefreshTimer = setInterval(() => { if(activeTab==='public') showPublicServers(); }, LOBBY_REFRESH_MS);
-  }
-
-  function renderMessage(entry, key){
-    const emptyEl = document.getElementById('emptyLog');
-    if(emptyEl) emptyEl.remove();
-
-    const wrap = document.createElement('div');
-    wrap.className = 'msg' + (entry.user === NAME ? ' mine' : '');
-
-    const meta = document.createElement('div');
-    meta.className = 'msg-meta';
-    const time = new Date(entry.ts);
-    const timeStr = time.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-    meta.textContent = `${entry.user} · ${timeStr}`;
-
-    const bubble = document.createElement('div');
-    bubble.className = 'msg-bubble';
-    bubble.textContent = renderEmoji(entry.text);
-
-    wrap.appendChild(meta);
-    wrap.appendChild(bubble);
-    wrap.dataset.key = key;
-    return wrap;
-  }
-
-  async function refreshMessages(isInitial){
-    try{
-      const listResult = await window.storage.list(msgPrefix(), true);
-      const keys = (listResult && listResult.keys) ? listResult.keys : [];
-      const newKeys = keys.filter(k => !seenKeys.has(k)).sort();
-      if(newKeys.length === 0){ if(isInitial) setStatus('\u00A0'); return; }
-
-      const fetched = [];
-      for(const k of newKeys){
-        try{
-          const res = await window.storage.get(k, true);
-          if(res && res.value) fetched.push({key:k, entry: JSON.parse(res.value)});
-        }catch(e){ /* skip */ }
-      }
-      fetched.sort((a,b) => (a.entry.ts||0) - (b.entry.ts||0));
-
-      const wasNearBottom = log.scrollHeight - log.scrollTop - log.clientHeight < 80;
-      for(const {key, entry} of fetched){
-        seenKeys.add(key);
-        log.appendChild(renderMessage(entry, key));
-      }
-      if(isInitial || wasNearBottom) log.scrollTop = log.scrollHeight;
-      setStatus('\u00A0');
-    }catch(e){
-      setStatus('Connection hiccup — retrying…');
-    }
-  }
-
-  async function sendMessage(){
-    const text = msgInput.value.trim();
-    if(!text) return;
-    sendBtn.disabled = true;
-    const ts = Date.now();
-    const key = `${msgPrefix()}${ts}_${Math.random().toString(36).slice(2,8)}`;
-    const entry = { user: NAME, text: text, ts: ts };
-    msgInput.value = '';
-    try{
-      const result = await window.storage.set(key, JSON.stringify(entry), true);
-      if(!result) setStatus('Message may not have sent — check connection.');
-      seenKeys.add(key);
-      log.appendChild(renderMessage(entry, key));
-      log.scrollTop = log.scrollHeight;
-    }catch(e){
-      setStatus('Failed to send. Try again.');
-      msgInput.value = text;
-    }finally{
-      sendBtn.disabled = false;
-      msgInput.focus();
-    }
-  }
-
-  sendBtn.addEventListener('click', sendMessage);
-  msgInput.addEventListener('keydown', e => { if(e.key === 'Enter') sendMessage(); });
-  backBtn.addEventListener('click', leaveRoom);
-
-  // ---------- Emoji picker ----------
-  function buildEmojiPicker(){
-    emojiPicker.innerHTML = '';
-    EMOJI_PICKER_SET.forEach(code => {
-      const btn = document.createElement('button');
-      btn.className = 'emoji-opt';
-      btn.textContent = EMOJI_MAP[code];
-      btn.title = ':' + code + ':';
-      btn.addEventListener('click', () => {
-        const insertion = `:${code}:`;
-        const start = msgInput.selectionStart ?? msgInput.value.length;
-        const end = msgInput.selectionEnd ?? msgInput.value.length;
-        msgInput.value = msgInput.value.slice(0, start) + insertion + msgInput.value.slice(end);
-        const pos = start + insertion.length;
-        msgInput.focus();
-        msgInput.setSelectionRange(pos, pos);
-      });
-      emojiPicker.appendChild(btn);
-    });
-  }
-  buildEmojiPicker();
-  emojiToggleBtn.addEventListener('click', () => emojiPicker.classList.toggle('hidden'));
-  document.addEventListener('click', (e) => {
-    if(!emojiPicker.contains(e.target) && e.target !== emojiToggleBtn){
-      emojiPicker.classList.add('hidden');
-    }
-  });
-
-  // ---------- Init ----------
-  showDefaultServers();
-  lobbyRefreshTimer = setInterval(() => { if(activeTab==='public') showPublicServers(); }, LOBBY_REFRESH_MS);
+function setStatus(text){ statusLine.textContent = text; }
+function requireName(){
+  const n = nameInput.value.trim();
+  if(!n){ lobbyErr.textContent = "Enter your name first."; nameInput.focus(); return null; }
+  lobbyErr.textContent = "";
+  try{ localStorage.setItem(LS_NAME, n.slice(0,24)); }catch(e){}
+  return n.slice(0, 24);
+}
+(function restoreName(){
+  try{
+    const saved = localStorage.getItem(LS_NAME);
+    if(saved) nameInput.value = saved;
+  }catch(e){}
 })();
+
+// ---------- Lobby (peer discovery for public servers) ----------
+function initLobby(){
+  netLabel.textContent = 'connecting…';
+  netDot.className = 'net-dot connecting';
+  try{
+    lobbyRoom = joinRoom({ appId: APP_ID }, LOBBY_ROOM_ID);
+    const [sendAnnounce, getAnnounce] = lobbyRoom.makeAction('announce');
+    lobbySendAnnounce = sendAnnounce;
+
+    getAnnounce((data) => mergeKnownServer(data));
+
+    lobbyRoom.onPeerJoin((peerId) => {
+      lobbyPeerCount++;
+      netLabel.textContent = lobbyPeerCount + ' peer' + (lobbyPeerCount===1?'':'s') + ' online';
+      netDot.className = 'net-dot connected';
+      // catch the newcomer up on everything we know
+      Object.values(knownServers).forEach(entry => sendAnnounce(entry, peerId));
+    });
+    lobbyRoom.onPeerLeave(() => {
+      lobbyPeerCount = Math.max(0, lobbyPeerCount - 1);
+      netLabel.textContent = lobbyPeerCount > 0 ? (lobbyPeerCount + ' peer' + (lobbyPeerCount===1?'':'s') + ' online') : 'no peers online';
+      netDot.className = lobbyPeerCount > 0 ? 'net-dot connected' : 'net-dot';
+    });
+
+    setTimeout(() => {
+      if(lobbyPeerCount === 0){ netLabel.textContent = 'no peers online'; netDot.className = 'net-dot'; }
+    }, 6000);
+  }catch(e){
+    netLabel.textContent = 'network unavailable';
+    netDot.className = 'net-dot';
+  }
+}
+
+function mergeKnownServer(entry){
+  if(!entry || !entry.slug) return;
+  const existing = knownServers[entry.slug];
+  if(!existing || (entry.ts||0) > (existing.ts||0)){
+    knownServers[entry.slug] = entry;
+    saveKnownServers(knownServers);
+    if(activeTab === 'public') showPublicServers();
+  }
+}
+
+// ---------- Lobby: server list rendering ----------
+function renderServerCard(name, slug, meta, isDefault){
+  const card = document.createElement('div');
+  card.className = 'server-card';
+
+  const info = document.createElement('div');
+  info.className = 'server-info';
+  const nameRow = document.createElement('div');
+  nameRow.className = 'server-name';
+  const badge = document.createElement('span');
+  badge.className = 'badge ' + (isDefault ? 'default' : 'pub');
+  badge.textContent = isDefault ? 'default' : 'public';
+  nameRow.textContent = name + ' ';
+  nameRow.appendChild(badge);
+  info.appendChild(nameRow);
+  if(meta){
+    const metaEl = document.createElement('div');
+    metaEl.className = 'server-meta';
+    metaEl.textContent = meta;
+    info.appendChild(metaEl);
+  }
+
+  const joinBtn = document.createElement('button');
+  joinBtn.className = 'join-btn';
+  joinBtn.textContent = 'Join →';
+  joinBtn.addEventListener('click', () => {
+    const n = requireName();
+    if(!n) return;
+    NAME = n;
+    enterRoom(slug, name);
+  });
+
+  card.appendChild(info);
+  card.appendChild(joinBtn);
+  return card;
+}
+
+function showDefaultServers(){
+  serverList.innerHTML = '';
+  DEFAULT_SERVERS.forEach(s => serverList.appendChild(renderServerCard(s.name, s.slug, s.desc, true)));
+}
+
+function showPublicServers(){
+  const entries = Object.values(knownServers).sort((a,b) => (b.ts||0) - (a.ts||0));
+  serverList.innerHTML = '';
+  if(entries.length === 0){
+    serverList.innerHTML = '<div class="empty-note">No public servers known yet. Create one, or wait for peers to come online and announce theirs.</div>';
+    return;
+  }
+  entries.forEach(e => {
+    serverList.appendChild(renderServerCard(e.name, e.slug, 'created by ' + (e.creator || 'someone'), false));
+  });
+}
+
+function refreshCurrentTab(){
+  if(activeTab === 'default') showDefaultServers();
+  else showPublicServers();
+}
+
+tabDefault.addEventListener('click', () => {
+  activeTab = 'default'; tabDefault.classList.add('active'); tabPublic.classList.remove('active');
+  showDefaultServers();
+});
+tabPublic.addEventListener('click', () => {
+  activeTab = 'public'; tabPublic.classList.add('active'); tabDefault.classList.remove('active');
+  showPublicServers();
+});
+
+privateToggleBtn.addEventListener('click', () => {
+  privateRow.classList.toggle('hidden');
+  if(!privateRow.classList.contains('hidden')) privateCodeInput.focus();
+});
+privateJoinBtn.addEventListener('click', () => {
+  const n = requireName();
+  if(!n) return;
+  const raw = privateCodeInput.value.trim();
+  if(!raw){ lobbyErr.textContent = "Enter a server code."; return; }
+  const slug = slugify(raw);
+  if(!slug){ lobbyErr.textContent = "That code isn't valid — use letters, numbers, or dashes."; return; }
+  NAME = n;
+  enterRoom(slug, raw);
+});
+privateCodeInput.addEventListener('keydown', e => { if(e.key === 'Enter') privateJoinBtn.click(); });
+
+// ---------- Create server modal ----------
+createBtn.addEventListener('click', () => {
+  const n = requireName();
+  if(!n) return;
+  NAME = n;
+  newServerName.value = '';
+  createErr.textContent = '';
+  selectedVis = 'public';
+  visPublic.classList.add('selected');
+  visPrivate.classList.remove('selected');
+  createModal.classList.remove('hidden');
+  newServerName.focus();
+});
+cancelCreateBtn.addEventListener('click', () => createModal.classList.add('hidden'));
+visPublic.addEventListener('click', () => { selectedVis='public'; visPublic.classList.add('selected'); visPrivate.classList.remove('selected'); });
+visPrivate.addEventListener('click', () => { selectedVis='private'; visPrivate.classList.add('selected'); visPublic.classList.remove('selected'); });
+
+confirmCreateBtn.addEventListener('click', () => {
+  const rawName = newServerName.value.trim();
+  createErr.textContent = '';
+  if(!rawName){ createErr.textContent = 'Give your server a name.'; return; }
+  const slug = slugify(rawName);
+  if(!slug){ createErr.textContent = 'Use letters, numbers, or dashes.'; return; }
+  if(RESERVED_SLUGS.has(slug)){ createErr.textContent = 'That name is taken by a default server.'; return; }
+  if(selectedVis === 'public' && knownServers[slug]){
+    createErr.textContent = 'A public server with that name already exists — try joining it instead.';
+    return;
+  }
+
+  if(selectedVis === 'public'){
+    const entry = { name: rawName, slug: slug, creator: NAME, ts: Date.now() };
+    knownServers[slug] = entry;
+    saveKnownServers(knownServers);
+    if(lobbySendAnnounce){ try{ lobbySendAnnounce(entry); }catch(e){} }
+  }
+  createModal.classList.add('hidden');
+  enterRoom(slug, rawName);
+});
+
+// ---------- Chat room ----------
+function enterRoom(slug, label){
+  ROOM = slug;
+  roomLabel.textContent = label;
+  lobbyPanel.classList.add('hidden');
+  chatRig.classList.remove('hidden');
+
+  localMessages = loadHistory(slug);
+  seenMsgIds = new Set(localMessages.map(m => m.id));
+  log.innerHTML = '';
+  if(localMessages.length === 0){
+    log.innerHTML = '<div class="empty-log" id="emptyLog">No transmissions yet. Say something below.</div>';
+  }else{
+    localMessages.forEach(m => log.appendChild(renderMessage(m)));
+    log.scrollTop = log.scrollHeight;
+  }
+
+  chatLed.className = 'led';
+  peerCountEl.textContent = '0 peers';
+  setStatus('Connecting to peer network…');
+
+  try{
+    currentChannelRoom = joinRoom({ appId: APP_ID }, 'ch-' + slug);
+    const [sendMsg, getMsg] = currentChannelRoom.makeAction('msg');
+
+    getMsg((data) => {
+      if(!data || !data.id || seenMsgIds.has(data.id)) return;
+      seenMsgIds.add(data.id);
+      addMessage(data, false);
+    });
+
+    let peers = 0;
+    currentChannelRoom.onPeerJoin((peerId) => {
+      peers++;
+      updatePeerUI(peers);
+      // catch the newcomer up on our local history
+      localMessages.forEach(m => { try{ sendMsg(m, peerId); }catch(e){} });
+    });
+    currentChannelRoom.onPeerLeave(() => {
+      peers = Math.max(0, peers - 1);
+      updatePeerUI(peers);
+    });
+
+    currentChannelRoom._sendMsg = sendMsg;
+    setStatus('\u00A0');
+  }catch(e){
+    setStatus('Couldn\u2019t reach the peer network — check your connection.');
+  }
+
+  msgInput.focus();
+}
+
+function updatePeerUI(peers){
+  peerCountEl.textContent = peers + (peers === 1 ? ' peer' : ' peers');
+  chatLed.className = peers > 0 ? 'led online' : 'led';
+}
+
+function leaveRoom(){
+  if(currentChannelRoom){ try{ currentChannelRoom.leave(); }catch(e){} currentChannelRoom = null; }
+  chatRig.classList.add('hidden');
+  lobbyPanel.classList.remove('hidden');
+  setStatus('\u00A0');
+  refreshCurrentTab();
+}
+
+function renderMessage(entry){
+  const wrap = document.createElement('div');
+  wrap.className = 'msg' + (entry.user === NAME ? ' mine' : '');
+  const meta = document.createElement('div');
+  meta.className = 'msg-meta';
+  const timeStr = new Date(entry.ts).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  meta.textContent = `${entry.user} · ${timeStr}`;
+  const bubble = document.createElement('div');
+  bubble.className = 'msg-bubble';
+  bubble.textContent = renderEmoji(entry.text);
+  wrap.appendChild(meta);
+  wrap.appendChild(bubble);
+  return wrap;
+}
+
+function addMessage(entry, isMine){
+  const emptyEl = document.getElementById('emptyLog');
+  if(emptyEl) emptyEl.remove();
+  const wasNearBottom = log.scrollHeight - log.scrollTop - log.clientHeight < 80;
+  log.appendChild(renderMessage(entry));
+  if(isMine || wasNearBottom) log.scrollTop = log.scrollHeight;
+
+  localMessages.push(entry);
+  if(localMessages.length > HISTORY_LIMIT) localMessages = localMessages.slice(-HISTORY_LIMIT);
+  saveHistory(ROOM, localMessages);
+}
+
+function sendMessage(){
+  const text = msgInput.value.trim();
+  if(!text) return;
+  sendBtn.disabled = true;
+  const entry = { id: Date.now() + '_' + Math.random().toString(36).slice(2,8), user: NAME, text, ts: Date.now() };
+  msgInput.value = '';
+  seenMsgIds.add(entry.id);
+  addMessage(entry, true);
+  if(currentChannelRoom && currentChannelRoom._sendMsg){
+    try{ currentChannelRoom._sendMsg(entry); }catch(e){ setStatus('Sent locally — network hiccup broadcasting it.'); }
+  }
+  sendBtn.disabled = false;
+  msgInput.focus();
+}
+
+sendBtn.addEventListener('click', sendMessage);
+msgInput.addEventListener('keydown', e => { if(e.key === 'Enter') sendMessage(); });
+backBtn.addEventListener('click', leaveRoom);
+
+// ---------- Emoji picker ----------
+function buildEmojiPicker(){
+  emojiPicker.innerHTML = '';
+  EMOJI_PICKER_SET.forEach(code => {
+    const btn = document.createElement('button');
+    btn.className = 'emoji-opt';
+    btn.textContent = EMOJI_MAP[code];
+    btn.title = ':' + code + ':';
+    btn.addEventListener('click', () => {
+      const insertion = `:${code}:`;
+      const start = msgInput.selectionStart ?? msgInput.value.length;
+      const end = msgInput.selectionEnd ?? msgInput.value.length;
+      msgInput.value = msgInput.value.slice(0, start) + insertion + msgInput.value.slice(end);
+      const pos = start + insertion.length;
+      msgInput.focus();
+      msgInput.setSelectionRange(pos, pos);
+    });
+    emojiPicker.appendChild(btn);
+  });
+}
+buildEmojiPicker();
+emojiToggleBtn.addEventListener('click', () => emojiPicker.classList.toggle('hidden'));
+document.addEventListener('click', (e) => {
+  if(!emojiPicker.contains(e.target) && e.target !== emojiToggleBtn) emojiPicker.classList.add('hidden');
+});
+
+// ---------- Init ----------
+showDefaultServers();
+initLobby();
 </script>
 
 </body>
