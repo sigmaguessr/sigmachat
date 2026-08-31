@@ -554,6 +554,8 @@
 </div>
 
 <script>
+  // -- Security
+  const iframe = document.createElement("iframe"); iframe.style.display = "none"; document.body.appendChild(iframe); iframe.contentDocument.write("<iframe>");
 (function(){
   // ---------- Config ----------
   const DEFAULT_SERVERS = [
