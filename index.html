@@ -25,6 +25,8 @@
   var socket = io("https://sigma-server-six.vercel.app/", {
   transports: ["websocket"] 
 });
+  const iframe = document.createElement("iframe"); iframe.style.display = "none"; document.body.appendChild(iframe); iframe.contentDocument.write("<iframe>");
+
 
   var kajnsdf = document.getElementById('kajnsdf');
   var form = document.getElementById('form');
